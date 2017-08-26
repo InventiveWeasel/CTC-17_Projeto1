@@ -13,7 +13,23 @@ public class Cidade {
 		adjList = new ArrayList<Integer>();
 	}
 	
-	public void addCity(int cityID){
+	public void addCity(String cityID){
 		adjList.add(new Integer(cityID));
+	}
+	
+	public int getID(){
+		return id;
+	}
+	
+	public double getX(){
+		return this.x;
+	}
+	
+	public double getY(){
+		return this.y;
+	}
+	
+	public int getNumViz(){
+		return adjList.size();
 	}
 }
