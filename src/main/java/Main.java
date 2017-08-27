@@ -10,7 +10,13 @@ public class Main {
 	public static void main(String[] args){
 		readData();
 		printData();
+		//BFSAlgorithm BFS = new BFSAlgorithm(cidades);
+		//BFS.run(203, 600);
+		
+		AStarAlgorithm Star = new AStarAlgorithm(cidades);
+		Star.run(203, 600);
 	}
+	
 	
 	private static void readData(){
 		String csvFile = "C:\\Users\\Ana Cuder\\workspace\\PROJETO1\\Uruguay.csv";

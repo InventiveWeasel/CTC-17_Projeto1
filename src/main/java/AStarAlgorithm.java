@@ -1,21 +1,26 @@
-import java.awt.List;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.Stack;
 
-public class BFSAlgorithm {
+public class AStarAlgorithm {
 	private ArrayList<Cidade> cidades;
 	private LinkedList<Cidade> sucessores;
 	private Stack<Double> costs;
 	private boolean visited[];
+	private double h[], g[];
+	private double INF = 100000;
 	
-	public BFSAlgorithm(ArrayList<Cidade> cidades){
+	public AStarAlgorithm(ArrayList<Cidade> cidades){
 		this.cidades = cidades;
 		this.sucessores = new LinkedList<Cidade>();
 		visited = new boolean[cidades.size()];
-		for(int i = 0; i < visited.length; i++)
+		h = new double[cidades.size()];
+		g = new double[cidades.size()];
+		for(int i = 0; i < visited.length; i++){
 			visited[i] = false;
+		}
+		
 	}
 
 	public double run(int start, int dest){
@@ -24,9 +29,17 @@ public class BFSAlgorithm {
 		ArrayList<Integer> vizIDs;
 		ArrayList<Cidade> viz = new ArrayList<Cidade>();
 		
+		//Inicializacoes
+		for(int i = 0; i < h.length; i++){
+			h[i] = distBetween(i, dest);
+			g[i] = INF;
+		}
+		g[start] = 0;
+		
 		sucessores.add(cidades.get(start));
 		while(!sucessores.isEmpty()){
 			actualCity = sucessores.removeFirst();
+			//System.out.println("ID = "+actualCity.getID());
 			if(actualCity.getID() == dest){
 				//System.out.println("Final = "+actualCity.getID());
 				
@@ -38,39 +51,50 @@ public class BFSAlgorithm {
 					cost = cost+actualCity.getCostTo();
 					index = actualCity.getFromID();
 					actualCity = cidades.get(index);
-					//System.out.println("ID = "+index);
+					System.out.println("ID = "+index);
 				}
-				//System.out.println("Custo = "+cost);
-				//System.out.println("Contador = "+counter);
+				System.out.println("Custo = "+cost);
+				System.out.println("Contador = "+counter);
 				return cost;
 			}
 			else{
-				//Ordenando a prioridade por custo dos vizinhos
+				//Montando conjunto de vizinhos
 				vizIDs = actualCity.getViz();
 				viz.clear();
 				for(int i = 0; i < actualCity.getNumViz(); i++){
 					Cidade actViz = cidades.get(vizIDs.get(i));
 					viz.add(actViz);
 				}
-				//Collections.sort(viz);
 				
 				//Para cada um dos vizinhos
 				for(int i = 0; i < actualCity.getNumViz(); i++){
-					//System.out.println(actualCity.getID());
-					int auxID = viz.get(i).getID();
-					if(!visited[auxID]){
+					int vizID = viz.get(i).getID();
+					double newG = g[actualCity.getID()] + distBetween(vizID, actualCity.getID());
+					if(newG < g[vizID]){
+						g[vizID] = newG;
+						visited[vizID] = false;
+						Cidade actViz = viz.get(i);
+						sucessores.add(actViz);
+						actViz.setCostTo(distBetween(actViz.getID(), actualCity.getID()));
+						actViz.setFromID(actualCity.getID());
+					}
+					/*
+					if(!visited[vizID]){
 						Cidade actViz = viz.get(i);
 						actViz.setCostTo(distBetween(actViz.getID(), actualCity.getID()));
 						actViz.setFromID(actualCity.getID());
-						visited[auxID] = true;
+						visited[vizID] = true;
 						sucessores.add(actViz);
 					}
+					*/
 				}
+				visited[actualCity.getID()] = true;
 				//Reordenar a fila
 				Collections.sort(sucessores);
 			}
 		}
 		return cost;
+		
 	}
 	
 	public double distBetween(int ID1, int ID2){
@@ -84,4 +108,5 @@ public class BFSAlgorithm {
 		return Math.sqrt(Math.pow(x1-x2,2)+Math.pow(y1-y2,2));
 		
 	}
+
 }
