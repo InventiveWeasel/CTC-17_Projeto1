@@ -40,8 +40,8 @@ public class BFSAlgorithm {
 					actualCity = cidades.get(index);
 					//System.out.println("ID = "+index);
 				}
-				//System.out.println("Custo = "+cost);
-				//System.out.println("Contador = "+counter);
+				System.out.println("Custo = "+cost);
+				System.out.println("Contador = "+counter);
 				return cost;
 			}
 			else{
@@ -61,6 +61,7 @@ public class BFSAlgorithm {
 					if(!visited[auxID]){
 						Cidade actViz = viz.get(i);
 						actViz.setCostTo(distBetween(actViz.getID(), actualCity.getID()));
+						actViz.setH(distBetween(actViz.getID(), dest));
 						actViz.setFromID(actualCity.getID());
 						visited[auxID] = true;
 						sucessores.add(actViz);

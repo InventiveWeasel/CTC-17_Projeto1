@@ -32,7 +32,7 @@ public class Game {
 	private void printTable(){
 		System.out.println("     1     2     3   ");
 		System.out.println("  ===================");
-		System.out.println("1 =  "+table[0][0]+"  =  "+table[1][0]+"  =  "+table[2][0]+"  =");
+		System.out.println("1 =  "+table[0][0]+"  =  "+table[0][1]+"  =  "+table[0][2]+"  =");
 		System.out.println("  ===================");
 		System.out.println("2 =  "+table[1][0]+"  =  "+table[1][1]+"  =  "+table[1][2]+"  =");
 		System.out.println("  ===================");

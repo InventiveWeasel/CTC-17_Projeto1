@@ -36,6 +36,16 @@ public class AStarAlgorithm {
 		}
 		g[start] = 0;
 		
+		/*
+		Cidade x = cidades.get(1);
+		sucessores.add(x);
+		x.setCostTo(30);
+		x.setFromID(100);
+		sucessores.add(cidades.get(22));
+		x.setCostTo(40);
+		sucessores.add(x);
+		*/
+		
 		sucessores.add(cidades.get(start));
 		while(!sucessores.isEmpty()){
 			actualCity = sucessores.removeFirst();
@@ -74,9 +84,12 @@ public class AStarAlgorithm {
 						g[vizID] = newG;
 						visited[vizID] = false;
 						Cidade actViz = viz.get(i);
-						sucessores.add(actViz);
 						actViz.setCostTo(distBetween(actViz.getID(), actualCity.getID()));
+						actViz.setH(newG + distBetween(actViz.getID(), dest));
 						actViz.setFromID(actualCity.getID());
+						if(!sucessores.contains(actViz))
+							sucessores.add(actViz);
+						
 					}
 					/*
 					if(!visited[vizID]){
@@ -105,7 +118,8 @@ public class AStarAlgorithm {
 		x2 = c2.getX();
 		y1 = c1.getY();
 		y2 = c2.getY();
-		return Math.sqrt(Math.pow(x1-x2,2)+Math.pow(y1-y2,2));
+		//return Math.sqrt(Math.pow(x1-x2,2)+Math.pow(y1-y2,2));
+		return Math.hypot(x1-x2, y1-y2);
 		
 	}
 

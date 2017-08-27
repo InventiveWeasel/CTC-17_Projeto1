@@ -6,6 +6,7 @@ public class Cidade implements Comparable<Cidade>{
 	private ArrayList<Integer> adjList;
 	private double costTo = 0;
 	private int fromID = 0;
+	private double h;
 	
 	
 	public Cidade(int id, double x, double y){
@@ -16,6 +17,13 @@ public class Cidade implements Comparable<Cidade>{
 	}
 	
 	
+	public void setH(double h){
+		this.h = h;
+	}
+	
+	public double getH(){
+		return this.h;
+	}
 	
 	public void addCity(String cityID){
 		adjList.add(new Integer(cityID));
@@ -57,10 +65,10 @@ public class Cidade implements Comparable<Cidade>{
 		return fromID;
 	}
 	public int compareTo(Cidade outracidade){
-		if(this.costTo < outracidade.getCostTo()){
+		if(this.h < outracidade.getH()){
 			return -1;
 		}
-		if(this.costTo > outracidade.getCostTo()){
+		if(this.h > outracidade.getH()){
 			return 1;
 		}
 		return 0;

@@ -10,11 +10,11 @@ public class Main {
 	public static void main(String[] args){
 		readData();
 		printData();
-		//BFSAlgorithm BFS = new BFSAlgorithm(cidades);
-		//BFS.run(203, 600);
+		BFSAlgorithm BFS = new BFSAlgorithm(cidades);
+		BFS.run(203, 600);
 		
-		AStarAlgorithm Star = new AStarAlgorithm(cidades);
-		Star.run(203, 600);
+		//AStarAlgorithm Star = new AStarAlgorithm(cidades);
+		//Star.run(203, 600);
 	}
 	
 	
