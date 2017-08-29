@@ -9,12 +9,27 @@ public class Main {
 	
 	public static void main(String[] args){
 		readData();
-		printData();
-		BFSAlgorithm BFS = new BFSAlgorithm(cidades);
-		BFS.run(203, 600);
 		
-		//AStarAlgorithm Star = new AStarAlgorithm(cidades);
-		//Star.run(203, 600);
+		BFSAlgorithm BFS = new BFSAlgorithm(cidades);
+		System.out.println("Running Greedy...");
+		double cost;
+		cost = BFS.run(203, 600);
+		long startTime = System.nanoTime();
+		double BFSTime = (double) ((System.nanoTime()-startTime)/1000000.);
+		System.out.println("Execution time: "+BFSTime+"ms");
+		System.out.println("Custo: "+cost);
+		System.out.println();
+		
+		readData();
+		AStarAlgorithm Star = new AStarAlgorithm(cidades);
+		System.out.println("Running A Star...");
+		startTime = System.nanoTime();
+		cost = Star.run(203, 600);
+		double AStarTime = (double) ((System.nanoTime()-startTime)/1000000.);
+		System.out.println("Execution time: "+AStarTime+"ms");
+		System.out.println("Custo: "+cost);
+		System.out.println();
+		
 	}
 	
 	

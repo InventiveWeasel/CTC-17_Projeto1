@@ -31,40 +31,31 @@ public class AStarAlgorithm {
 		
 		//Inicializacoes
 		for(int i = 0; i < h.length; i++){
+			//armazena distancias das cidades ao destino
 			h[i] = distBetween(i, dest);
+			//Uma vez determinado o caminho ao destino,
+			//armazena distância para a cidade i a partir de i-1
 			g[i] = INF;
 		}
 		g[start] = 0;
 		
-		/*
-		Cidade x = cidades.get(1);
-		sucessores.add(x);
-		x.setCostTo(30);
-		x.setFromID(100);
-		sucessores.add(cidades.get(22));
-		x.setCostTo(40);
-		sucessores.add(x);
-		*/
-		
 		sucessores.add(cidades.get(start));
 		while(!sucessores.isEmpty()){
 			actualCity = sucessores.removeFirst();
-			//System.out.println("ID = "+actualCity.getID());
 			if(actualCity.getID() == dest){
-				//System.out.println("Final = "+actualCity.getID());
 				
 				//Calculando custo e caminho
 				int index = dest;
 				int counter = 0;
+				String path = "";
 				while(index != start){
 					counter++;
 					cost = cost+actualCity.getCostTo();
 					index = actualCity.getFromID();
 					actualCity = cidades.get(index);
-					System.out.println("ID = "+index);
+					path = path+index+", ";
 				}
-				System.out.println("Custo = "+cost);
-				System.out.println("Contador = "+counter);
+				System.out.println(path);
 				return cost;
 			}
 			else{
@@ -91,15 +82,6 @@ public class AStarAlgorithm {
 							sucessores.add(actViz);
 						
 					}
-					/*
-					if(!visited[vizID]){
-						Cidade actViz = viz.get(i);
-						actViz.setCostTo(distBetween(actViz.getID(), actualCity.getID()));
-						actViz.setFromID(actualCity.getID());
-						visited[vizID] = true;
-						sucessores.add(actViz);
-					}
-					*/
 				}
 				visited[actualCity.getID()] = true;
 				//Reordenar a fila
@@ -118,7 +100,6 @@ public class AStarAlgorithm {
 		x2 = c2.getX();
 		y1 = c1.getY();
 		y2 = c2.getY();
-		//return Math.sqrt(Math.pow(x1-x2,2)+Math.pow(y1-y2,2));
 		return Math.hypot(x1-x2, y1-y2);
 		
 	}

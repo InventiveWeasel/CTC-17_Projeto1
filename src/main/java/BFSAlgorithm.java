@@ -6,6 +6,7 @@ import java.util.Stack;
 
 public class BFSAlgorithm {
 	private ArrayList<Cidade> cidades;
+	
 	private LinkedList<Cidade> sucessores;
 	private Stack<Double> costs;
 	private boolean visited[];
@@ -28,20 +29,19 @@ public class BFSAlgorithm {
 		while(!sucessores.isEmpty()){
 			actualCity = sucessores.removeFirst();
 			if(actualCity.getID() == dest){
-				//System.out.println("Final = "+actualCity.getID());
 				
 				//Calculando custo e caminho
 				int index = dest;
 				int counter = 0;
+				String path = "";
 				while(index != start){
 					counter++;
 					cost = cost+actualCity.getCostTo();
 					index = actualCity.getFromID();
 					actualCity = cidades.get(index);
-					//System.out.println("ID = "+index);
+					path = path+index+", ";
 				}
-				System.out.println("Custo = "+cost);
-				System.out.println("Contador = "+counter);
+				System.out.println(path);
 				return cost;
 			}
 			else{
@@ -52,11 +52,9 @@ public class BFSAlgorithm {
 					Cidade actViz = cidades.get(vizIDs.get(i));
 					viz.add(actViz);
 				}
-				//Collections.sort(viz);
 				
 				//Para cada um dos vizinhos
 				for(int i = 0; i < actualCity.getNumViz(); i++){
-					//System.out.println(actualCity.getID());
 					int auxID = viz.get(i).getID();
 					if(!visited[auxID]){
 						Cidade actViz = viz.get(i);
